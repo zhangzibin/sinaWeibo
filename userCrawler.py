@@ -9,15 +9,14 @@ from bs4 import BeautifulSoup
 import MySQLdb
 
 #connect db
-db = MySQLdb.connect(host="localhost", user="USER", passwd="PSW", db="sina_weibo")
+db = MySQLdb.connect(host="localhost", user="USER", passwd="PWD", db="sina_weibo")
 cursor = db.cursor()
 
 #config
-CRAWL_DEPTH = 3
 FP_COOKIE = open("cookies.txt","r")
 ARGS_COOKIE = FP_COOKIE.readline()
 FP_COOKIE.close()
-MY_UID = "YOUR ID";
+MY_UID = "YOUR_ID";
 
 #class: User
 class User:
@@ -29,11 +28,16 @@ class User:
 
 #fetch html
 def fetchUrl(url):
-    request = urllib2.Request(url);
-    request.add_header('Cookie',ARGS_COOKIE)
-    response = urllib2.urlopen(request)
-    return response.read()
-
+    try:
+        request = urllib2.Request(url);
+        request.add_header('Cookie',ARGS_COOKIE)
+        response = urllib2.urlopen(request)
+        return response.read()
+    except:
+        print '[error]Fetch html fail'
+        return ''
+        
+        
 #get page num
 def getPageNum(html):
     start = html.find('W_pages') -13;
@@ -125,7 +129,7 @@ for eachUser in unfetchedUser:
     print '[info]Found User Num: ' + str(len(followList))
     if(followPageNum > 1):
         for x in range(2, int(followPageNum) + 1):
-            time.sleep(2)
+            time.sleep(1.5)
             print '[info]Fetch Follow Page' + str(x) + '...'
             rawcontents = fetchUrl(FOLLOW_PATH + str(x))
             tmpList = getUserList(rawcontents)
@@ -139,7 +143,10 @@ for eachUser in unfetchedUser:
     for follow in followList:
         if long(follow['id']) not in allUser:
             sql = "insert into user values(%s,'',%s,0,%s)"
-            cursor.execute(sql, [follow['id'], follow['nickName'], follow['sex']])
+            try:
+                cursor.execute(sql, [follow['id'], follow['nickName'], follow['sex']])
+            except:
+                print '[error]insert [uid:' + follow['id'] + '] fail.';
             allUser.append(long(follow['id']));
         sql = "insert into relation values(null,%s,%s)"
         cursor.execute(sql, [eachUser.id, follow['id']])
@@ -155,7 +162,7 @@ for eachUser in unfetchedUser:
     
     if(fansPageNum > 1):
         for x in range(2, int(fansPageNum) + 1):
-            time.sleep(2)
+            time.sleep(1.5)
             print '[info]Fetch Fans Page' + str(x) + '...'
             rawcontents = fetchUrl(FANS_PATH + str(x))
             tmpList = getUserList(rawcontents)
@@ -169,17 +176,25 @@ for eachUser in unfetchedUser:
     for fan in fansList:
         if long(fan['id']) not in allUser:
             sql = "insert into user values(%s,'',%s,0,%s)"
-            cursor.execute(sql, [fan['id'], fan['nickName'], fan['sex']])
+            try:
+                cursor.execute(sql, [fan['id'], fan['nickName'], fan['sex']])
+            except:
+                print '[error]insert [uid:' + fan['id'] + '] fail.';
             allUser.append(long(fan['id']));
         sql = "insert into relation values(null,%s,%s)"
         cursor.execute(sql, [fan['id'], eachUser.id])
-    db.commit()
-    print allUser
+    try:
+        db.commit()
+    except:
+        print '[error]update db fail'
+        continue
 	
     #Lastly, update current user
     sql = "update user set accountID=%s,isfetched=1 where id=%s";
     cursor.execute(sql, [eachUser.accountID, eachUser.id])
     db.commit()
+    
+    time.sleep(5)
 #close db
 cursor.close()
 db.close()
