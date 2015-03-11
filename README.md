@@ -1,7 +1,7 @@
 sinaWeibo
 =========
 
-<p style="color:red;">Maybe Sina has modified the dom setting or ajax of their website, so my code may not work. But it's a demo that may help you.</p>
+!!!Maybe Sina has modified the dom setting or ajax of their website, so my code may not work. But it's a demo that may help you.!!!
 
 Base on work of https://github.com/chyanju/wCrawler
 Crawl user and Weibo, and store in Mysql.
