@@ -1,7 +1,7 @@
 sinaWeibo
 =========
 
-Sina Weibo Crawler
+<p style="color:red;">Maybe Sina has modified the dom setting or ajax of their website, so my code may not work. But it's a demo that may help you.</p>
 
 Base on work of https://github.com/chyanju/wCrawler
 Crawl user and Weibo, and store in Mysql.
@@ -11,5 +11,4 @@ Crawl user and Weibo, and store in Mysql.
 3. Update userCrawler.py, including Mysql config and MY_UID.
 4. Runing it 3~4 times. It may takes a few hours, so I do not add a 'For'.
 
-
-More job later: weiboCrawler.py ... 
+* The weiboCrawler.py can be used in almost the same way as userCrawler.py.
