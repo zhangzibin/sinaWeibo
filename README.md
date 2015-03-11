@@ -3,7 +3,7 @@ sinaWeibo
 
 !!!Maybe Sina has modified the dom setting or ajax of their website, so my code may not work. But it's a demo that may help you.!!!
 
-Base on work of https://github.com/chyanju/wCrawler
+Base on work of https://github.com/chyanju/wCrawler, Thanks Yanju Chen's help.
 Crawl user and Weibo, and store in Mysql.
 
 1. Mysql, execute sina_weibo.sql. Add a seed in table user, id(the short id, size is 10) at least.
