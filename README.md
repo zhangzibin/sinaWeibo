@@ -1,9 +1,8 @@
 sinaWeibo
 =========
 
-!!!Maybe Sina has modified the dom setting or ajax of their website, so my code may not work. But it's a demo that may help you.!!!
+!!!Maybe Sina has modified the dom setting or ajax of their website, so my code may not work. But it's still can be a helpful demo!!!
 
-Base on work of https://github.com/chyanju/wCrawler, Thanks Yanju Chen's help.
 Crawl user and Weibo, and store in Mysql.
 
 1. Mysql, execute sina_weibo.sql. Add a seed in table user, id(the short id, size is 10) at least.
@@ -12,3 +11,7 @@ Crawl user and Weibo, and store in Mysql.
 4. Runing it 3~4 times. It may takes a few hours, so I do not add a 'For'.
 
 * The weiboCrawler.py can be used in almost the same way as userCrawler.py.
+
+-----------
+
+Based on work of https://github.com/chyanju/wCrawler, Thanks Yanju Chen.
