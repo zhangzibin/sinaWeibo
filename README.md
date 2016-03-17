@@ -1,9 +1,8 @@
-sinaWeibo
-=========
-
-*****Maybe Sina has modified the dom setting or ajax of their website, so my code may not work. But it's still can be a helpful demo**
+#sinaWeibo
 
 Crawl Weibo user and their tweets, and store in Mysql.
+
+**Maybe Sina has modified the dom setting or ajax of their website, so my code may not work. But it's still can be a helpful demo**
 
 ## Usage
 1. Build Mysql database and tables, execute sina_weibo.sql. Insert a line in table `user`, the id is short id of Weibo, size is 10. This is the root of breadth-first search.
@@ -13,6 +12,5 @@ Crawl Weibo user and their tweets, and store in Mysql.
 
 * The weiboCrawler.py can be used in almost the same way as userCrawler.py. It will crawl tweets of users in table `user`.
 
------------
-
+## Acknowledge
 Based on work of https://github.com/chyanju/wCrawler, Thanks Yanju Chen.
